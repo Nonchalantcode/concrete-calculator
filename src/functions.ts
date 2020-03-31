@@ -3,7 +3,8 @@ function notANumber(v: string): boolean{
 }
 
 function wrongFormatted(v: string): boolean{
-    return /\.+/.test(v);
+    let m =  v.match(/\./g);
+    return m !== null && m.length > 1 || v.endsWith(".");
 }
 
 function isZero(v: string): boolean{
@@ -26,3 +27,16 @@ export function isValidNumber(v: string): boolean{
     return true;
 }
 
+export function alert(v: string){
+    window.alert(v);
+}
+
+export function inchesToFeet(v: number): number{
+    return v / 12;
+}
+
+export function cubicFeetToCubicYards(v: number): number{
+    return v / 27;
+}
+
+export function toNearestInteger(v: number, offset: number): void{}

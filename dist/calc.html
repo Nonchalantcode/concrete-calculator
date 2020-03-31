@@ -7,49 +7,120 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Title Page</title>
         <link href="styles.css" type="text/css" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Raleway&display=swap" rel="stylesheet">
+
     </head>
     <body>
-        <h1 class="text-center">Calculator</h1>
+        <h1 class="text-center calculator-page-main-heading">Calculator</h1>
 
-
-        <div id="concrete-slab-calculator">
-            <h3 class="calc heading">Concrente slabs/footings calculator</h3>
-            <p>
-                <strong>Calculate the number of yd<sup>3</sup> (cubic yards) needed to complete your project.</strong>
-            </p>
-            <div class="user-inputs">
-                <label class="input-label thickness-label">
-                    Slab thickness in inches.
-                    <input type="text" id="slab-thickness" class="user-input" />
-                    <!-- <p class="warning">
-
-                    </p> -->
-                </label>
-                <label class="input-label width-label">
-                    Slab width in feet.
-                    <input type="text" id="slab-width" class="user-input" />
-                </label>
-                <label class="input-label length-label">
-                    Slab length feet.
-                    <input type="text" id="slab-length" class="user-input" />
-                </label>
-                <button type="submit" id="slab-calc-submit">
-                    Calculate
-                </button>
-            </div>
-            <div class="results-section">
-                <div class="concrete-yards">
-                    <p><strong>Concrete</strong></p>
-                    <span class="unit">yd<sup>3</sup>: </span>
-                    <span class="result"></span>
+        <div id="calculators">
+            <div id="concrete-slab-calculator">
+                <h3 class="calc heading">Concrete slabs calculator</h3>
+                <p>
+                    <strong>Calculate the number of cubic yards needed to complete your project.</strong>
+                </p>
+                <div class="user-inputs">
+                    <label class="input-label thickness-label">
+                        Slab thickness (inches).
+                        <input type="text" id="slab-thickness" class="user-input" />
+                    </label>
+                    <label class="input-label width-label">
+                        Slab width (feet).
+                        <input type="text" id="slab-width" class="user-input" />
+                    </label>
+                    <label class="input-label length-label">
+                        Slab length feet.
+                        <input type="text" id="slab-length" class="user-input" />
+                    </label>
+                    <button type="submit" id="slab-calc-submit">
+                        Calculate
+                    </button>
                 </div>
-                <div class="concrete-bags">
-                    <p><strong>Number of pre-mix bags needed:</strong></p>
-                    <p>Amount of 40-pound bags: <span class="forty-pound-bags bags"></span></p>
-                    <p>Amount of 60-pound bags: <span class="sixty-pound-bags bags"></span></p>
-                    <p>Amount of 80-pound bags: <span class="eighty-pound-bags bags"></span></p>
+                <div class="results-section">
+                    <div class="concrete-yards">
+                        <p><strong>Concrete</strong></p>
+                        <span class="result"></span>
+                        <span class="unit">yd<sup>3</sup></span>
+                    </div>
+                    <div class="concrete-bags">
+                        <p><strong>Number of pre-mix bags needed:</strong></p>
+                        <p>Amount of 40-pound bags: <span class="forty-pound-bags bags"></span></p>
+                        <p>Amount of 60-pound bags: <span class="sixty-pound-bags bags"></span></p>
+                        <p>Amount of 80-pound bags: <span class="eighty-pound-bags bags"></span></p>
+                    </div>
                 </div>
             </div>
+    
+            <div id="concrete-footing-calculator">
+                <h3 class="calc heading">Concrete footings calculator</h3>
+                <p>
+                    <strong>Calculate the number of cubic yards and concrete bags needed to complete your project.</strong>
+                </p>
+                <div class="user-inputs">
+                    <label class="input-label thickness-label">
+                        Thickness (inches).
+                        <input type="text" id="footing-thickness" class="user-input" />
+                    </label>
+                    <label class="input-label width-label">
+                        Width (feet).
+                        <input type="text" id="footing-width" class="user-input" />
+                    </label>
+                    <label class="input-label length-label">
+                        Length (feet).
+                        <input type="text" id="footing-length" class="user-input" />
+                    </label>
+                    <button type="submit" id="footing-calc-submit">
+                        Calculate
+                    </button>
+                </div>
+                <div class="results-section">
+                    <div class="concrete-yards">
+                        <p><strong>Concrete</strong></p>
+                        <span class="result"></span>
+                        <span class="unit">yd<sup>3</sup></span>
+                    </div>
+                    <div class="concrete-bags">
+                        <p><strong>Number of pre-mix bags needed:</strong></p>
+                        <p>Amount of 40-pound bags: <span class="forty-pound-bags bags"></span></p>
+                        <p>Amount of 60-pound bags: <span class="sixty-pound-bags bags"></span></p>
+                        <p>Amount of 80-pound bags: <span class="eighty-pound-bags bags"></span></p>
+                    </div>
+                </div>
+            </div>
+
+            <div id="column-calculator">
+                <h3 class="calc heading">Columns/Cylinder calculator</h3>
+                <p>
+                    <strong>Enter the diameter and height of your concrete column to calculate the number of cubic yards and concrete bags needed to complete your project.</strong>
+                </p>
+                <div class="user-inputs">
+                    <label class="input-label diameter-label">
+                        Diameter (inches).
+                        <input type="text" id="column-diameter" class="user-input" />
+                    </label>
+                    <label class="input-label height-label">
+                        Height (feet).
+                        <input type="text" id="column-height" class="user-input" />
+                    </label>
+                    <button type="submit" id="column-calc-submit">
+                        Calculate
+                    </button>
+                </div>
+                <div class="results-section">
+                    <div class="concrete-yards">
+                        <p><strong>Concrete</strong></p>
+                        <span class="result"></span>
+                        <span class="unit">yd<sup>3</sup></span>
+                    </div>
+                    <div class="concrete-bags">
+                        <p><strong>Number of pre-mix bags needed:</strong></p>
+                        <p>Amount of 40-pound bags: <span class="forty-pound-bags bags"></span></p>
+                        <p>Amount of 60-pound bags: <span class="sixty-pound-bags bags"></span></p>
+                        <p>Amount of 80-pound bags: <span class="eighty-pound-bags bags"></span></p>
+                    </div>
+                </div>
+            </div>
+
         </div>
 
         <!-- jQuery -->
