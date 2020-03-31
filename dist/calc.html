@@ -29,8 +29,12 @@
                         <input type="text" id="slab-width" class="user-input" />
                     </label>
                     <label class="input-label length-label">
-                        Slab length feet.
+                        Slab length (feet).
                         <input type="text" id="slab-length" class="user-input" />
+                    </label>
+                    <label class="input-label quantity-label">
+                        Quantity
+                        <input type="text" id="slab-quantity" class="user-input" placeholder="1"/>
                     </label>
                     <button type="submit" id="slab-calc-submit">
                         Calculate
@@ -69,6 +73,10 @@
                         Length (feet).
                         <input type="text" id="footing-length" class="user-input" />
                     </label>
+                    <label class="input-label quantity-label">
+                        Quantity.
+                        <input type="text" id="footing-quantity" class="user-input" placeholder="1" />
+                    </label>
                     <button type="submit" id="footing-calc-submit">
                         Calculate
                     </button>
@@ -102,7 +110,56 @@
                         Height (feet).
                         <input type="text" id="column-height" class="user-input" />
                     </label>
+                    <label class="input-label quantity-label">
+                        Quantity.
+                        <input type="text" id="column-quantity" class="user-input" placeholder="1" />
+                    </label>
                     <button type="submit" id="column-calc-submit">
+                        Calculate
+                    </button>
+                </div>
+                <div class="results-section">
+                    <div class="concrete-yards">
+                        <p><strong>Concrete</strong></p>
+                        <span class="result"></span>
+                        <span class="unit">yd<sup>3</sup></span>
+                    </div>
+                    <div class="concrete-bags">
+                        <p><strong>Number of pre-mix bags needed:</strong></p>
+                        <p>Amount of 40-pound bags: <span class="forty-pound-bags bags"></span></p>
+                        <p>Amount of 60-pound bags: <span class="sixty-pound-bags bags"></span></p>
+                        <p>Amount of 80-pound bags: <span class="eighty-pound-bags bags"></span></p>
+                    </div>
+                </div>
+            </div>
+
+            <div id="steps-calculator">
+                <h3 class="calc heading">Steps calculator</h3>
+                <p>
+                    <strong>!!!! MESSAGE GOES HERE</strong>
+                </p>
+                <div class="user-inputs">
+                    <label class="input-label depth-label">
+                        Platform depth (inches).
+                        <input type="text" id="platform-depth" class="user-input" />
+                    </label>
+                    <label class="input-label height-label">
+                        Rise height (feet).
+                        <input type="text" id="steps-height" class="user-input" />
+                    </label>
+                    <label class="input-label run-label">
+                         Run depth (feet).
+                        <input type="text" id="steps-run" class="user-input" />
+                    </label>
+                    <label class="input-label width-label">
+                        Run depth (feet).
+                       <input type="text" id="steps-width" class="user-input" />
+                   </label>
+                    <label class="input-label quantity-label">
+                        Quantity.
+                        <input type="text" id="steps-quantity" class="user-input" placeholder="1" />
+                    </label>
+                    <button type="submit" id="steps-calc-submit">
                         Calculate
                     </button>
                 </div>

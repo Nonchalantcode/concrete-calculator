@@ -189,14 +189,27 @@
             BagSizes[BagSizes["EightyPoundBag"] = 0.022] = "EightyPoundBag";
         })(BagSizes || (BagSizes = {}));
         /* Slab calculator selectors */
-        var slabCalculatorParent = "#concrete-slab-calculator", slabThicknessInput = index_1.dom.f(slabCalculatorParent + " #slab-thickness"), slabWidthInput = index_1.dom.f(slabCalculatorParent + " #slab-width"), slabLengthInput = index_1.dom.f(slabCalculatorParent + " #slab-length"), slabSubmitBtn = index_1.dom.f(slabCalculatorParent + " #slab-calc-submit"), slabCalcResults = index_1.dom.f(slabCalculatorParent + " .result"), fortyPoundBagsSlab = index_1.dom.f(slabCalculatorParent + " .forty-pound-bags"), sixtyPoundBagsSlab = index_1.dom.f(slabCalculatorParent + " .sixty-pound-bags"), eightyPoundBagsSlab = index_1.dom.f(slabCalculatorParent + " .eighty-pound-bags");
+        var slabCalculatorParent = "#concrete-slab-calculator", slabThicknessInput = index_1.dom.f(slabCalculatorParent + " #slab-thickness"), slabWidthInput = index_1.dom.f(slabCalculatorParent + " #slab-width"), slabLengthInput = index_1.dom.f(slabCalculatorParent + " #slab-length"), slabQuantityInput = index_1.dom.f(slabCalculatorParent + " #slab-quantity"), slabSubmitBtn = index_1.dom.f(slabCalculatorParent + " #slab-calc-submit"), slabCalcResults = index_1.dom.f(slabCalculatorParent + " .result"), fortyPoundBagsSlab = index_1.dom.f(slabCalculatorParent + " .forty-pound-bags"), sixtyPoundBagsSlab = index_1.dom.f(slabCalculatorParent + " .sixty-pound-bags"), eightyPoundBagsSlab = index_1.dom.f(slabCalculatorParent + " .eighty-pound-bags");
         /* Footing calculator selectors */
-        var footingCalculatorParent = "#concrete-footing-calculator", footingThicknessInput = index_1.dom.f(footingCalculatorParent + " #footing-thickness"), footingWidthInput = index_1.dom.f(footingCalculatorParent + " #footing-width"), footingLengthInput = index_1.dom.f(footingCalculatorParent + " #footing-length"), footingSubmitBtn = index_1.dom.f(footingCalculatorParent + " #footing-calc-submit"), footingCalcResults = index_1.dom.f(footingCalculatorParent + " .result"), fortyPoundBagsFooting = index_1.dom.f(footingCalculatorParent + " .forty-pound-bags"), sixtyPoundBagsFooting = index_1.dom.f(footingCalculatorParent + " .sixty-pound-bags"), eightyPoundBagsFooting = index_1.dom.f(footingCalculatorParent + " .eighty-pound-bags");
+        var footingCalculatorParent = "#concrete-footing-calculator", footingThicknessInput = index_1.dom.f(footingCalculatorParent + " #footing-thickness"), footingWidthInput = index_1.dom.f(footingCalculatorParent + " #footing-width"), footingLengthInput = index_1.dom.f(footingCalculatorParent + " #footing-length"), footingQuantityInput = index_1.dom.f(footingCalculatorParent + " #footing-quantity"), footingSubmitBtn = index_1.dom.f(footingCalculatorParent + " #footing-calc-submit"), footingCalcResults = index_1.dom.f(footingCalculatorParent + " .result"), fortyPoundBagsFooting = index_1.dom.f(footingCalculatorParent + " .forty-pound-bags"), sixtyPoundBagsFooting = index_1.dom.f(footingCalculatorParent + " .sixty-pound-bags"), eightyPoundBagsFooting = index_1.dom.f(footingCalculatorParent + " .eighty-pound-bags");
         /*  Column calculator selectors */
-        var columnCalculatorParent = "#column-calculator", columnDiameterInput = index_1.dom.f(columnCalculatorParent + " #column-diameter"), columnHeightInput = index_1.dom.f(columnCalculatorParent + " #column-height"), columnSubmitBtn = index_1.dom.f(columnCalculatorParent + " #column-calc-submit"), columnCalcResults = index_1.dom.f(columnCalculatorParent + " .result"), fortyPoundBagsColumn = index_1.dom.f(columnCalculatorParent + " .forty-pound-bags"), sixtyPoundBagsColumn = index_1.dom.f(columnCalculatorParent + " .sixty-pound-bags"), eightyPoundBagsColumn = index_1.dom.f(columnCalculatorParent + " .eighty-pound-bags");
-        function calculateSlab(thicknessInput, widthInput, lengthInput, resultsBox, type) {
+        var columnCalculatorParent = "#column-calculator", columnDiameterInput = index_1.dom.f(columnCalculatorParent + " #column-diameter"), columnHeightInput = index_1.dom.f(columnCalculatorParent + " #column-height"), columnQuantityInput = index_1.dom.f(columnCalculatorParent + " #column-quantity"), columnSubmitBtn = index_1.dom.f(columnCalculatorParent + " #column-calc-submit"), columnCalcResults = index_1.dom.f(columnCalculatorParent + " .result"), fortyPoundBagsColumn = index_1.dom.f(columnCalculatorParent + " .forty-pound-bags"), sixtyPoundBagsColumn = index_1.dom.f(columnCalculatorParent + " .sixty-pound-bags"), eightyPoundBagsColumn = index_1.dom.f(columnCalculatorParent + " .eighty-pound-bags");
+        function calculateSlab(thicknessInput, widthInput, lengthInput, resultsBox, quantity, type) {
             if (type === void 0) { type = 'slab'; }
             var thickness, width, length, results;
+            var slabsQuantity;
+            if (quantity.value == "") {
+                slabsQuantity = 1;
+            }
+            else {
+                if (functions_1.isValidNumber(quantity.value)) {
+                    slabsQuantity = functions_1.parseInput(quantity.value);
+                }
+                else {
+                    window.alert("Enter a valid " + type + " quantity");
+                    return;
+                }
+            }
             if (functions_1.isValidNumber(thicknessInput.value)) {
                 thickness = functions_1.parseInput(thicknessInput.value);
             }
@@ -218,10 +231,7 @@
                 window.alert("Enter a valid value for " + type + " length.");
                 return;
             }
-            // results in ft^3
-            results = width * length * (thickness * (1 / 12));
-            // results in yd^3
-            results = results / 27;
+            results = functions_1.cubicFeetToCubicYards(width * length * functions_1.inchesToFeet(thickness)) * slabsQuantity;
             resultsBox.textContent = results.toFixed(4);
             return results;
         }
@@ -239,7 +249,7 @@
             }
         }
         slabSubmitBtn.addEventListener('click', function (ev) {
-            var cubicYards = calculateSlab(slabThicknessInput, slabWidthInput, slabLengthInput, slabCalcResults);
+            var cubicYards = calculateSlab(slabThicknessInput, slabWidthInput, slabLengthInput, slabCalcResults, slabQuantityInput);
             if (cubicYards !== undefined) {
                 fortyPoundBagsSlab.textContent = "" + Math.ceil(calculateBags(cubicYards, BagSizes.FortyPoundBag));
                 sixtyPoundBagsSlab.textContent = "" + Math.ceil(calculateBags(cubicYards, BagSizes.SixtyPoundBag));
@@ -247,16 +257,29 @@
             }
         });
         footingSubmitBtn.addEventListener('click', function (ev) {
-            var cubicYards = calculateSlab(footingThicknessInput, footingWidthInput, footingLengthInput, footingCalcResults, 'footing');
+            var cubicYards = calculateSlab(footingThicknessInput, footingWidthInput, footingLengthInput, footingCalcResults, footingQuantityInput, 'footing');
             if (cubicYards !== undefined) {
                 fortyPoundBagsFooting.textContent = "" + Math.ceil(calculateBags(cubicYards, BagSizes.FortyPoundBag));
                 sixtyPoundBagsFooting.textContent = "" + Math.ceil(calculateBags(cubicYards, BagSizes.SixtyPoundBag));
                 eightyPoundBagsFooting.textContent = "" + Math.ceil(calculateBags(cubicYards, BagSizes.EightyPoundBag));
             }
         });
-        function calculateColumn(diameterInput, heightInput, resultsBox) {
+        function calculateColumn(diameterInput, heightInput, resultsBox, quantity) {
             var radius, height, result;
+            var columnsQuantity;
             var PI = Math.PI;
+            if (quantity.value == "") {
+                columnsQuantity = 1;
+            }
+            else {
+                if (functions_1.isValidNumber(quantity.value)) {
+                    columnsQuantity = functions_1.parseInput(quantity.value);
+                }
+                else {
+                    functions_1.alert("Enter a valid value for quantity.");
+                    return;
+                }
+            }
             if (functions_1.isValidNumber(diameterInput.value)) {
                 radius = functions_1.inchesToFeet(functions_1.parseInput(diameterInput.value)) / 2;
             }
@@ -271,12 +294,12 @@
                 functions_1.alert("Enter a valid value for columnn height");
                 return;
             }
-            result = functions_1.cubicFeetToCubicYards(PI * Math.pow(radius, 2) * height);
+            result = functions_1.cubicFeetToCubicYards(PI * Math.pow(radius, 2) * height) * columnsQuantity;
             resultsBox.textContent = "" + result.toFixed(4);
             return result;
         }
         columnSubmitBtn.addEventListener("click", function (ev) {
-            var concreteCubicYards = calculateColumn(columnDiameterInput, columnHeightInput, columnCalcResults);
+            var concreteCubicYards = calculateColumn(columnDiameterInput, columnHeightInput, columnCalcResults, columnQuantityInput);
             if (concreteCubicYards == undefined) {
                 return;
             }
@@ -287,6 +310,9 @@
             sixtyPoundBagsColumn.textContent = sixtyPoundBags;
             eightyPoundBagsColumn.textContent = eightyPoundBags;
         });
+        function sumFirstN(n) {
+            return n * (n + 1) / 2;
+        }
     });
     
     'marker:resolver';

@@ -11,6 +11,10 @@ function isZero(v: string): boolean{
     return v.length == 1 && v == '0' || /^0\.0+$/.test(v);
 }
 
+function isNeg(v: string): boolean{
+    return v.startsWith('-');
+}
+
 export function parseInput(v: string): number{
     // If 'v' comes in the form of .123445 etc
     if(/^\.\d+/.test(v)){
@@ -21,7 +25,7 @@ export function parseInput(v: string): number{
 
 export function isValidNumber(v: string): boolean{
     let input = v.trim();
-    if(input.length == 0 || isZero(v) || notANumber(v) || wrongFormatted(v)){
+    if(input.length == 0 || isZero(v) || isNeg(v) || notANumber(v) || wrongFormatted(v)){
         return false;
     } 
     return true;
