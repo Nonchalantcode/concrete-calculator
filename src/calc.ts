@@ -37,7 +37,6 @@ let footingCalculatorParent = "#concrete-footing-calculator",
 
 /*  Column calculator selectors */
 
-
 let columnCalculatorParent = "#column-calculator",
     columnDiameterInput = dom.f(`${columnCalculatorParent} #column-diameter`)! as input,
     columnHeightInput = dom.f(`${columnCalculatorParent} #column-height`)! as input,
@@ -62,6 +61,33 @@ let stepCalculatorParent = "#steps-calculator",
     sixtyPoundBagsStep = dom.f(`${stepCalculatorParent} .sixty-pound-bags`)!,
     eightyPoundBagsStep = dom.f(`${stepCalculatorParent} .eighty-pound-bags`)!;
 
+function sumFirstN(n: number): number{
+    return n * (n + 1) / 2;
+}
+
+function displayBagSizeResults(fortyContainer: Element, sixtyContainer: Element, eightyContainer: Element, volume: number): void{
+    let [f, s, e] = 
+    [BagSizes.FortyPoundBag, BagSizes.SixtyPoundBag, BagSizes.EightyPoundBag]
+    .map(bag => Math.ceil(calculateBags(volume, bag)));
+
+    fortyContainer.textContent = `${f}`;
+    sixtyContainer.textContent = `${s}`;
+    eightyContainer.textContent = `${e}`;
+}
+
+function calculateBags(v: number, bagSize: BagSizes): number{
+    switch(bagSize){
+        case BagSizes.FortyPoundBag: {
+            return v / BagSizes.FortyPoundBag;
+        }
+        case BagSizes.SixtyPoundBag: {
+            return v / BagSizes.SixtyPoundBag;
+        }
+        case BagSizes.EightyPoundBag: {
+            return v / BagSizes.EightyPoundBag;
+        }
+    }
+}
 
 function calculateSlab(thicknessInput: input, widthInput: input, lengthInput: input, resultsBox: Element, quantity: input, type: string = 'slab'): number | undefined{
     let thickness, width, length, results;
@@ -77,7 +103,6 @@ function calculateSlab(thicknessInput: input, widthInput: input, lengthInput: in
                 return;
             }
         }
-
         if(isValidInput(thicknessInput.value)){
             thickness = parseInput(thicknessInput.value)
         }else{
@@ -101,38 +126,6 @@ function calculateSlab(thicknessInput: input, widthInput: input, lengthInput: in
         return results;
 }
 
-function calculateBags(v: number, bagSize: BagSizes): number{
-    switch(bagSize){
-        case BagSizes.FortyPoundBag: {
-            return v / BagSizes.FortyPoundBag;
-        }
-        case BagSizes.SixtyPoundBag: {
-            return v / BagSizes.SixtyPoundBag;
-        }
-        case BagSizes.EightyPoundBag: {
-            return v / BagSizes.EightyPoundBag;
-        }
-    }
-}
-
-slabSubmitBtn.addEventListener('click', ev => {
-    let cubicYards = calculateSlab(slabThicknessInput, slabWidthInput, slabLengthInput, slabCalcResults, slabQuantityInput);
-    if(cubicYards !== undefined){
-        fortyPoundBagsSlab.textContent = `${Math.ceil(calculateBags(cubicYards, BagSizes.FortyPoundBag))}`;
-        sixtyPoundBagsSlab.textContent = `${Math.ceil(calculateBags(cubicYards, BagSizes.SixtyPoundBag))}`;
-        eightyPoundBagsSlab.textContent = `${Math.ceil(calculateBags(cubicYards, BagSizes.EightyPoundBag))}`
-    }
-});
-
-footingSubmitBtn.addEventListener('click', ev => {
-    let cubicYards = calculateSlab(footingThicknessInput, footingWidthInput, footingLengthInput, footingCalcResults, footingQuantityInput, 'footing');
-    if(cubicYards !== undefined){
-        fortyPoundBagsFooting.textContent = `${Math.ceil(calculateBags(cubicYards, BagSizes.FortyPoundBag))}`;
-        sixtyPoundBagsFooting.textContent = `${Math.ceil(calculateBags(cubicYards, BagSizes.SixtyPoundBag))}`;
-        eightyPoundBagsFooting.textContent = `${Math.ceil(calculateBags(cubicYards, BagSizes.EightyPoundBag))}`
-    }
-})
-
 function calculateColumn(diameterInput: input, heightInput: input, resultsBox: Element, quantity: input): number | undefined{
     let radius: number,
         height: number,
@@ -150,7 +143,6 @@ function calculateColumn(diameterInput: input, heightInput: input, resultsBox: E
             return;
         }
     }
-
     if(isValidInput(diameterInput.value)){
         radius = inchesToFeet(parseInput(diameterInput.value)) / 2;
     }else{
@@ -166,27 +158,6 @@ function calculateColumn(diameterInput: input, heightInput: input, resultsBox: E
     result = cubicFeetToCubicYards(PI * Math.pow(radius, 2) * height) * columnsQuantity;
     resultsBox.textContent = `${result.toFixed(4)}`
     return  result;
-}
-
-columnSubmitBtn.addEventListener("click", ev => {
-    let concreteCubicYards = calculateColumn(columnDiameterInput, columnHeightInput, columnCalcResults, columnQuantityInput);
-    if(concreteCubicYards == undefined){
-        return;
-    }
-
-    let [fortyPoundBags, sixtyPoundBags, eightyPoundBags] = 
-    [BagSizes.FortyPoundBag,
-     BagSizes.SixtyPoundBag, 
-     BagSizes.EightyPoundBag].map(bagsize => `${Math.ceil(calculateBags(concreteCubicYards!, bagsize))}`)
-
-     fortyPoundBagsColumn.textContent = fortyPoundBags;
-     sixtyPoundBagsColumn.textContent = sixtyPoundBags;
-     eightyPoundBagsColumn.textContent = eightyPoundBags;
-
-});
-
-function sumFirstN(n: number): number{
-    return n * (n + 1) / 2;
 }
 
 function calculateSteps(steps: input, height: input, width: input, platformDepth: input, runDepth: input, resultsBox: Element): number | undefined{
@@ -242,16 +213,27 @@ function calculateSteps(steps: input, height: input, width: input, platformDepth
     return calculation;
 }
 
+slabSubmitBtn.addEventListener('click', ev => {
+    let cubicYards = calculateSlab(slabThicknessInput, slabWidthInput, slabLengthInput, slabCalcResults, slabQuantityInput);
+    if(cubicYards == undefined) return;
+    displayBagSizeResults(fortyPoundBagsSlab, sixtyPoundBagsSlab, eightyPoundBagsSlab, cubicYards);
+});
+
+footingSubmitBtn.addEventListener('click', ev => {
+    let cubicYards = calculateSlab(footingThicknessInput, footingWidthInput, footingLengthInput, footingCalcResults, footingQuantityInput, 'footing');
+    if(cubicYards == undefined) return;
+    displayBagSizeResults(fortyPoundBagsFooting, sixtyPoundBagsFooting, eightyPoundBagsFooting, cubicYards);
+})
+
+columnSubmitBtn.addEventListener("click", ev => {
+    let concreteCubicYards = calculateColumn(columnDiameterInput, columnHeightInput, columnCalcResults, columnQuantityInput);
+    if(concreteCubicYards == undefined) return;
+     displayBagSizeResults(fortyPoundBagsColumn, sixtyPoundBagsColumn, eightyPoundBagsColumn, concreteCubicYards);
+
+});
+
 stepSubmitBtn.addEventListener('click', ev => {
     let calcResults = calculateSteps(stepQuantity, stepRiseHeight, stepWidth, stepPlatformDepth, stepRunDepth, stepCalcResults);
-    if(calcResults !== undefined){
-        let [fortyPoundBags, sixtyPoundBags, eightyPoundBags] = 
-        [BagSizes.FortyPoundBag,
-         BagSizes.SixtyPoundBag, 
-         BagSizes.EightyPoundBag].map(bagsize => `${Math.ceil(calculateBags(calcResults!, bagsize))}`)
-         
-         fortyPoundBagsStep.textContent = fortyPoundBags;
-         sixtyPoundBagsStep.textContent = sixtyPoundBags;
-         eightyPoundBagsStep.textContent = eightyPoundBags;
-    }
+    if (calcResults == undefined) return;
+    displayBagSizeResults(fortyPoundBagsStep, sixtyPoundBagsStep, eightyPoundBagsStep, calcResults);
 })
