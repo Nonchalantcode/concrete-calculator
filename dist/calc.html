@@ -13,7 +13,7 @@
     <body>
         <h1 class="text-center calculator-page-main-heading">Calculator</h1>
 
-        <div id="calculators">
+        <div class="calculators">
             <div class="calculator">
                 <div id="concrete-slab-calculator">
                     <h3 class="calc heading">Concrete slabs calculator</h3>
@@ -22,19 +22,19 @@
                     </p>
                     <div class="user-inputs">
                         <label class="input-label thickness-label">
-                            Slab thickness (inches).
+                            <span>Slab thickness (inches).</span>
                             <input type="text" id="slab-thickness" class="user-input" />
                         </label>
                         <label class="input-label width-label">
-                            Slab width (feet).
+                            <span>Slab width (feet).</span>
                             <input type="text" id="slab-width" class="user-input" />
                         </label>
                         <label class="input-label length-label">
-                            Slab length (feet).
+                            <span>Slab length (feet).</span>
                             <input type="text" id="slab-length" class="user-input" />
                         </label>
                         <label class="input-label quantity-label">
-                            Quantity
+                            <span>Quantity</span>
                             <input type="text" id="slab-quantity" class="user-input" placeholder="1"/>
                         </label>
                         <button type="submit" id="slab-calc-submit">
@@ -43,7 +43,7 @@
                     </div>
                     <div class="results-section">
                         <div class="concrete-yards">
-                            <p><strong>Concrete</strong></p>
+                            <p><strong>Volume of concrete:</strong></p>
                             <span class="result"></span>
                             <span class="unit">yd<sup>3</sup></span>
                         </div>
@@ -69,127 +69,183 @@
                     </p>
                 </div>
             </div>
+
+            <div class="calculator">
+                <div id="concrete-footing-calculator">
+                    <h3 class="calc heading">Concrete footings calculator</h3>
+                    <p>
+                        <strong>Calculate the number of cubic yards and concrete bags needed to complete your project.</strong>
+                    </p>
+                    <div class="user-inputs">
+                        <label class="input-label thickness-label">
+                            <span>Thickness (inches).</span>
+                            <input type="text" id="footing-thickness" class="user-input" />
+                        </label>
+                        <label class="input-label width-label">
+                            <span>Width (feet).</span>
+                            <input type="text" id="footing-width" class="user-input" />
+                        </label>
+                        <label class="input-label length-label">
+                            <span>Length (feet).</span>
+                            <input type="text" id="footing-length" class="user-input" />
+                        </label>
+                        <label class="input-label quantity-label">
+                            <span>Quantity.</span>
+                            <input type="text" id="footing-quantity" class="user-input" placeholder="1" />
+                        </label>
+                        <button type="submit" id="footing-calc-submit">
+                            Calculate
+                        </button>
+                    </div>
+                    <div class="results-section">
+                        <div class="concrete-yards">
+                            <p><strong>Volume of concrete:</strong></p>
+                            <span class="result"></span>
+                            <span class="unit">yd<sup>3</sup></span>
+                        </div>
+                        <div class="concrete-bags">
+                            <p><strong>Number of pre-mix bags needed:</strong></p>
+                            <p>Amount of 40-pound bags: <span class="forty-pound-bags bags"></span></p>
+                            <p>Amount of 60-pound bags: <span class="sixty-pound-bags bags"></span></p>
+                            <p>Amount of 80-pound bags: <span class="eighty-pound-bags bags"></span></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="additional-info">
+                    <p class="plain-text">
+                        Determine the volumen of concrete you'll need in your projects. 
+                    </p>
+                    <p class="plain-text">
+                        The concrete footings calculator is guided by this formula:<br>
+                        <span class="formula">
+                            W x L x H
+                        </span>
+                        <br>
+                        Where W corresponds to the width, L to the length, and H to the thickness.
+                    </p>
+                </div>
+            </div>
     
-            <div id="concrete-footing-calculator">
-                <h3 class="calc heading">Concrete footings calculator</h3>
-                <p>
-                    <strong>Calculate the number of cubic yards and concrete bags needed to complete your project.</strong>
-                </p>
-                <div class="user-inputs">
-                    <label class="input-label thickness-label">
-                        Thickness (inches).
-                        <input type="text" id="footing-thickness" class="user-input" />
-                    </label>
-                    <label class="input-label width-label">
-                        Width (feet).
-                        <input type="text" id="footing-width" class="user-input" />
-                    </label>
-                    <label class="input-label length-label">
-                        Length (feet).
-                        <input type="text" id="footing-length" class="user-input" />
-                    </label>
-                    <label class="input-label quantity-label">
-                        Quantity.
-                        <input type="text" id="footing-quantity" class="user-input" placeholder="1" />
-                    </label>
-                    <button type="submit" id="footing-calc-submit">
-                        Calculate
-                    </button>
-                </div>
-                <div class="results-section">
-                    <div class="concrete-yards">
-                        <p><strong>Concrete</strong></p>
-                        <span class="result"></span>
-                        <span class="unit">yd<sup>3</sup></span>
+            <div class="calculator">
+                <div id="column-calculator">
+                    <h3 class="calc heading">Columns/Cylinder calculator</h3>
+                    <p>
+                        <strong>Enter the diameter and height of your concrete column to calculate the number of cubic yards and concrete bags needed to complete your project.</strong>
+                    </p>
+                    <div class="user-inputs">
+                        <label class="input-label diameter-label">
+                            <span>Diameter (inches).</span>
+                            <input type="text" id="column-diameter" class="user-input" />
+                        </label>
+                        <label class="input-label height-label">
+                            <span>Height (feet).</span>
+                            <input type="text" id="column-height" class="user-input" />
+                        </label>
+                        <label class="input-label quantity-label">
+                            <span>Quantity.</span>
+                            <input type="text" id="column-quantity" class="user-input" placeholder="1" />
+                        </label>
+                        <button type="submit" id="column-calc-submit">
+                            Calculate
+                        </button>
                     </div>
-                    <div class="concrete-bags">
-                        <p><strong>Number of pre-mix bags needed:</strong></p>
-                        <p>Amount of 40-pound bags: <span class="forty-pound-bags bags"></span></p>
-                        <p>Amount of 60-pound bags: <span class="sixty-pound-bags bags"></span></p>
-                        <p>Amount of 80-pound bags: <span class="eighty-pound-bags bags"></span></p>
+                    <div class="results-section">
+                        <div class="concrete-yards">
+                            <p><strong>Volume of concrete:</strong></p>
+                            <span class="result"></span>
+                            <span class="unit">yd<sup>3</sup></span>
+                        </div>
+                        <div class="concrete-bags">
+                            <p><strong>Number of pre-mix bags needed:</strong></p>
+                            <p>Amount of 40-pound bags: <span class="forty-pound-bags bags"></span></p>
+                            <p>Amount of 60-pound bags: <span class="sixty-pound-bags bags"></span></p>
+                            <p>Amount of 80-pound bags: <span class="eighty-pound-bags bags"></span></p>
+                        </div>
                     </div>
                 </div>
-            </div>
-
-            <div id="column-calculator">
-                <h3 class="calc heading">Columns/Cylinder calculator</h3>
-                <p>
-                    <strong>Enter the diameter and height of your concrete column to calculate the number of cubic yards and concrete bags needed to complete your project.</strong>
-                </p>
-                <div class="user-inputs">
-                    <label class="input-label diameter-label">
-                        Diameter (inches).
-                        <input type="text" id="column-diameter" class="user-input" />
-                    </label>
-                    <label class="input-label height-label">
-                        Height (feet).
-                        <input type="text" id="column-height" class="user-input" />
-                    </label>
-                    <label class="input-label quantity-label">
-                        Quantity.
-                        <input type="text" id="column-quantity" class="user-input" placeholder="1" />
-                    </label>
-                    <button type="submit" id="column-calc-submit">
-                        Calculate
-                    </button>
-                </div>
-                <div class="results-section">
-                    <div class="concrete-yards">
-                        <p><strong>Concrete</strong></p>
-                        <span class="result"></span>
-                        <span class="unit">yd<sup>3</sup></span>
-                    </div>
-                    <div class="concrete-bags">
-                        <p><strong>Number of pre-mix bags needed:</strong></p>
-                        <p>Amount of 40-pound bags: <span class="forty-pound-bags bags"></span></p>
-                        <p>Amount of 60-pound bags: <span class="sixty-pound-bags bags"></span></p>
-                        <p>Amount of 80-pound bags: <span class="eighty-pound-bags bags"></span></p>
-                    </div>
+                <div class="additional-info">
+                    <p class="plain-text">
+                        Determine the volumen of concrete you'll need in your projects. 
+                    </p>
+                    <p class="plain-text">
+                        The concrete cylinder/column calculator is guided by this formula:<br>
+                        <span class="formula">
+                            PI x (D/2)<sup>2</sup> x H
+                        </span>
+                        <br>
+                        Where PI corresponds to the Pi mathematical constant, D to the diameter of the column, and H to the height.
+                    </p>
                 </div>
             </div>
 
-            <div id="steps-calculator">
-                <h3 class="calc heading">Steps calculator</h3>
-                <p>
-                    Calculate volume of steps.
-                </p>
-                <div class="user-inputs">
-                    <label class="input-label depth-label">
-                        Platform depth (inches).
-                        <input type="text" id="platform-depth" class="user-input" />
-                    </label>
-                    <label class="input-label height-label">
-                        Rise height (inches).
-                        <input type="text" id="steps-height" class="user-input" />
-                    </label>
-                    <label class="input-label run-label">
-                         Run depth (inches).
-                        <input type="text" id="steps-run" class="user-input" />
-                    </label>
-                    <label class="input-label width-label">
-                        Width (feet).
-                       <input type="text" id="steps-width" class="user-input" />
-                   </label>
-                    <label class="input-label quantity-label">
-                        Number of steps <strong>(including platform)</strong>
-                        <input type="text" id="steps-quantity" class="user-input" />
-                    </label>
-                    <button type="submit" id="steps-calc-submit">
-                        Calculate
-                    </button>
+            <div class="calculator">
+                <div id="steps-calculator">
+                    <h3 class="calc heading">Steps calculator</h3>
+                    <p>
+                        <strong>Calculate volume of steps.</strong>
+                    </p>
+                    <div class="user-inputs">
+                        <label class="input-label depth-label">
+                            <span>Platform depth (inches).</span>
+                            <input type="text" id="platform-depth" class="user-input" />
+                        </label>
+                        <label class="input-label height-label">
+                            <span>Rise height (inches).</span>
+                            <input type="text" id="steps-height" class="user-input" />
+                        </label>
+                        <label class="input-label run-label">
+                             <span>Run depth (inches).</span>
+                            <input type="text" id="steps-run" class="user-input" />
+                        </label>
+                        <label class="input-label width-label">
+                            <span>Width (feet).</span>
+                           <input type="text" id="steps-width" class="user-input" />
+                       </label>
+                        <label class="input-label quantity-label">
+                            <span>Number of steps <strong>(including platform)</strong></span>
+                            <input type="text" id="steps-quantity" class="user-input" />
+                        </label>
+                        <button type="submit" id="steps-calc-submit">
+                            Calculate
+                        </button>
+                    </div>
+                    <div class="results-section">
+                        <div class="concrete-yards">
+                            <p><strong>Volume of concrete:</strong></p>
+                            <span class="result"></span>
+                            <span class="unit">yd<sup>3</sup></span>
+                        </div>
+                        <div class="concrete-bags">
+                            <p><strong>Number of pre-mix bags needed:</strong></p>
+                            <p>Amount of 40-pound bags: <span class="forty-pound-bags bags"></span></p>
+                            <p>Amount of 60-pound bags: <span class="sixty-pound-bags bags"></span></p>
+                            <p>Amount of 80-pound bags: <span class="eighty-pound-bags bags"></span></p>
+                        </div>
+                    </div>
                 </div>
-                <div class="results-section">
-                    <div class="concrete-yards">
-                        <p><strong>Concrete</strong></p>
-                        <span class="result"></span>
-                        <span class="unit">yd<sup>3</sup></span>
-                    </div>
-                    <div class="concrete-bags">
-                        <p><strong>Number of pre-mix bags needed:</strong></p>
-                        <p>Amount of 40-pound bags: <span class="forty-pound-bags bags"></span></p>
-                        <p>Amount of 60-pound bags: <span class="sixty-pound-bags bags"></span></p>
-                        <p>Amount of 80-pound bags: <span class="eighty-pound-bags bags"></span></p>
-                    </div>
+                <div class="additional-info">
+                    <p class="plain-text">
+                        Determine the volumen of concrete you'll need in your projects. 
+                    </p>
+                    <p class="plain-text">
+                        When the number of steps is equal to 1 (the base case). The steps calculator is guided by this formula:<br/> 
+                        <span class="formula">
+                            PD x H x W
+                        </span>
+                        <br/>
+                        Where PD corresponds to the platform depth, H corresponds to the rise height, and W corresponds to the width.
+                    </p>
+                    <p class="plain-text">
+                        When the number of steps is greater than 1. The steps calculator is guided by this formula: <br/>
+                        <span class="formula">
+                            (N x PD x H x W) + H x W x RD x (1 + ... + (N - 1))
+                        </span>
+                        <br/>
+                        Where N corresponds to the number of steps, PD corresponds to the platform depth, H corresponds to the rise height, W corresponds to the width, and RD to the run depth.
+                    </p>
+                    <p class="note">
+                
+                    </p>
                 </div>
             </div>
 
