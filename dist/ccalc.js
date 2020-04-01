@@ -148,6 +148,9 @@
         function isZero(v) {
             return v.length == 1 && v == '0' || /^0\.0+$/.test(v);
         }
+        function isNeg(v) {
+            return v.startsWith('-');
+        }
         function parseInput(v) {
             // If 'v' comes in the form of .123445 etc
             if (/^\.\d+/.test(v)) {
@@ -158,7 +161,7 @@
         exports.parseInput = parseInput;
         function isValidNumber(v) {
             var input = v.trim();
-            if (input.length == 0 || isZero(v) || notANumber(v) || wrongFormatted(v)) {
+            if (input.length == 0 || isZero(v) || isNeg(v) || notANumber(v) || wrongFormatted(v)) {
                 return false;
             }
             return true;
@@ -194,6 +197,8 @@
         var footingCalculatorParent = "#concrete-footing-calculator", footingThicknessInput = index_1.dom.f(footingCalculatorParent + " #footing-thickness"), footingWidthInput = index_1.dom.f(footingCalculatorParent + " #footing-width"), footingLengthInput = index_1.dom.f(footingCalculatorParent + " #footing-length"), footingQuantityInput = index_1.dom.f(footingCalculatorParent + " #footing-quantity"), footingSubmitBtn = index_1.dom.f(footingCalculatorParent + " #footing-calc-submit"), footingCalcResults = index_1.dom.f(footingCalculatorParent + " .result"), fortyPoundBagsFooting = index_1.dom.f(footingCalculatorParent + " .forty-pound-bags"), sixtyPoundBagsFooting = index_1.dom.f(footingCalculatorParent + " .sixty-pound-bags"), eightyPoundBagsFooting = index_1.dom.f(footingCalculatorParent + " .eighty-pound-bags");
         /*  Column calculator selectors */
         var columnCalculatorParent = "#column-calculator", columnDiameterInput = index_1.dom.f(columnCalculatorParent + " #column-diameter"), columnHeightInput = index_1.dom.f(columnCalculatorParent + " #column-height"), columnQuantityInput = index_1.dom.f(columnCalculatorParent + " #column-quantity"), columnSubmitBtn = index_1.dom.f(columnCalculatorParent + " #column-calc-submit"), columnCalcResults = index_1.dom.f(columnCalculatorParent + " .result"), fortyPoundBagsColumn = index_1.dom.f(columnCalculatorParent + " .forty-pound-bags"), sixtyPoundBagsColumn = index_1.dom.f(columnCalculatorParent + " .sixty-pound-bags"), eightyPoundBagsColumn = index_1.dom.f(columnCalculatorParent + " .eighty-pound-bags");
+        /* Steps calculator selectors */
+        var stepCalculatorParent = "#steps-calculator", stepPlatformDepth = index_1.dom.f(stepCalculatorParent + " #platform-depth"), stepRiseHeight = index_1.dom.f(stepCalculatorParent + " #steps-height"), stepRunDepth = index_1.dom.f(stepCalculatorParent + " #steps-run"), stepWidth = index_1.dom.f(stepCalculatorParent + " #steps-width"), stepQuantity = index_1.dom.f(stepCalculatorParent + " #steps-quantity"), stepSubmitBtn = index_1.dom.f(stepCalculatorParent + " #steps-calc-submit"), stepCalcResults = index_1.dom.f(stepCalculatorParent + " .result"), fortyPoundBagsStep = index_1.dom.f(stepCalculatorParent + " .forty-pound-bags"), sixtyPoundBagsStep = index_1.dom.f(stepCalculatorParent + " .sixty-pound-bags"), eightyPoundBagsStep = index_1.dom.f(stepCalculatorParent + " .eighty-pound-bags");
         function calculateSlab(thicknessInput, widthInput, lengthInput, resultsBox, quantity, type) {
             if (type === void 0) { type = 'slab'; }
             var thickness, width, length, results;
@@ -313,6 +318,67 @@
         function sumFirstN(n) {
             return n * (n + 1) / 2;
         }
+        function calculateSteps(steps, height, width, platformDepth, runDepth, resultsBox) {
+            // base case is where steps = 1
+            var numberOfSteps, stepsHeight, stepsWidth, stepsPlatformDepth, stepsRunDepth;
+            var calculation;
+            if (functions_1.isValidNumber(steps.value)) {
+                numberOfSteps = functions_1.parseInput(steps.value);
+            }
+            else {
+                functions_1.alert("Enter a valid number of steps");
+                return;
+            }
+            if (functions_1.isValidNumber(height.value)) {
+                stepsHeight = functions_1.inchesToFeet(functions_1.parseInput(height.value));
+            }
+            else {
+                functions_1.alert("Enter a valid value for height");
+                return;
+            }
+            if (functions_1.isValidNumber(width.value)) {
+                stepsWidth = functions_1.parseInput(width.value);
+            }
+            else {
+                functions_1.alert("Enter a valid value for width");
+                return;
+            }
+            if (functions_1.isValidNumber(platformDepth.value)) {
+                stepsPlatformDepth = functions_1.inchesToFeet(functions_1.parseInput(platformDepth.value));
+            }
+            else {
+                functions_1.alert("Enter a valid value for platform depth");
+                return;
+            }
+            if (functions_1.isValidNumber(runDepth.value)) {
+                stepsRunDepth = functions_1.inchesToFeet(functions_1.parseInput(runDepth.value));
+            }
+            else {
+                functions_1.alert("Enter a valid value for run depth");
+                return;
+            }
+            if (numberOfSteps == 1) {
+                calculation = functions_1.cubicFeetToCubicYards(stepsHeight * stepsWidth * stepsPlatformDepth);
+                resultsBox.textContent = "" + calculation.toFixed(4);
+                return calculation;
+            }
+            calculation = (numberOfSteps * stepsHeight * stepsWidth * stepsPlatformDepth) +
+                (stepsHeight * stepsWidth * stepsRunDepth * (sumFirstN(numberOfSteps - 1)));
+            calculation = functions_1.cubicFeetToCubicYards(calculation);
+            resultsBox.textContent = "" + calculation.toFixed(4);
+            return calculation;
+        }
+        stepSubmitBtn.addEventListener('click', function (ev) {
+            var calcResults = calculateSteps(stepQuantity, stepRiseHeight, stepWidth, stepPlatformDepth, stepRunDepth, stepCalcResults);
+            if (calcResults !== undefined) {
+                var _a = [BagSizes.FortyPoundBag,
+                    BagSizes.SixtyPoundBag,
+                    BagSizes.EightyPoundBag].map(function (bagsize) { return "" + Math.ceil(calculateBags(calcResults, bagsize)); }), fortyPoundBags = _a[0], sixtyPoundBags = _a[1], eightyPoundBags = _a[2];
+                fortyPoundBagsStep.textContent = fortyPoundBags;
+                sixtyPoundBagsStep.textContent = sixtyPoundBags;
+                eightyPoundBagsStep.textContent = eightyPoundBags;
+            }
+        });
     });
     
     'marker:resolver';

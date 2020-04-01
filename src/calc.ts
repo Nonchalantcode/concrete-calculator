@@ -48,6 +48,21 @@ let columnCalculatorParent = "#column-calculator",
     sixtyPoundBagsColumn = dom.f(`${columnCalculatorParent} .sixty-pound-bags`)!,
     eightyPoundBagsColumn = dom.f(`${columnCalculatorParent} .eighty-pound-bags`)!;
 
+/* Steps calculator selectors */
+
+let stepCalculatorParent = "#steps-calculator",
+    stepPlatformDepth = dom.f(`${stepCalculatorParent} #platform-depth`)! as input,
+    stepRiseHeight = dom.f(`${stepCalculatorParent} #steps-height`)! as input,
+    stepRunDepth = dom.f(`${stepCalculatorParent} #steps-run`)! as input,
+    stepWidth = dom.f(`${stepCalculatorParent} #steps-width`)! as input,
+    stepQuantity = dom.f(`${stepCalculatorParent} #steps-quantity`)! as input,
+    stepSubmitBtn = dom.f(`${stepCalculatorParent} #steps-calc-submit`)!,
+    stepCalcResults = dom.f(`${stepCalculatorParent} .result`)!,
+    fortyPoundBagsStep = dom.f(`${stepCalculatorParent} .forty-pound-bags`)!,
+    sixtyPoundBagsStep = dom.f(`${stepCalculatorParent} .sixty-pound-bags`)!,
+    eightyPoundBagsStep = dom.f(`${stepCalculatorParent} .eighty-pound-bags`)!;
+
+
 function calculateSlab(thicknessInput: input, widthInput: input, lengthInput: input, resultsBox: Element, quantity: input, type: string = 'slab'): number | undefined{
     let thickness, width, length, results;
     let slabsQuantity: number;
@@ -203,7 +218,7 @@ function calculateSteps(steps: input, height: input, width: input, platformDepth
         return;
     }
     if(isValidInput(platformDepth.value)){
-        stepsPlatformDepth = parseInput(platformDepth.value);
+        stepsPlatformDepth = inchesToFeet(parseInput(platformDepth.value));
     }else{
         alert("Enter a valid value for platform depth");
         return;
@@ -220,9 +235,23 @@ function calculateSteps(steps: input, height: input, width: input, platformDepth
         return calculation;
     }
     calculation = (numberOfSteps * stepsHeight * stepsWidth * stepsPlatformDepth) + 
-                    (stepsHeight * stepsWidth * stepsRunDepth * (sumFirstN(numberOfSteps)));
+                    (stepsHeight * stepsWidth * stepsRunDepth * (sumFirstN(numberOfSteps - 1)));
 
     calculation = cubicFeetToCubicYards(calculation);
     resultsBox.textContent = `${calculation.toFixed(4)}`;
     return calculation;
 }
+
+stepSubmitBtn.addEventListener('click', ev => {
+    let calcResults = calculateSteps(stepQuantity, stepRiseHeight, stepWidth, stepPlatformDepth, stepRunDepth, stepCalcResults);
+    if(calcResults !== undefined){
+        let [fortyPoundBags, sixtyPoundBags, eightyPoundBags] = 
+        [BagSizes.FortyPoundBag,
+         BagSizes.SixtyPoundBag, 
+         BagSizes.EightyPoundBag].map(bagsize => `${Math.ceil(calculateBags(calcResults!, bagsize))}`)
+         
+         fortyPoundBagsStep.textContent = fortyPoundBags;
+         sixtyPoundBagsStep.textContent = sixtyPoundBags;
+         eightyPoundBagsStep.textContent = eightyPoundBags;
+    }
+})

@@ -1,5 +1,16 @@
+.page-cover{
+	display: none !important;
+}
+
 #calculators * {
     font-family: 'Raleway', 'sans-serif';
+}
+
+.calculator{
+    position: relative;
+}
+.additional-info{
+    display: none;
 }
 
 .input-label,
@@ -28,12 +39,13 @@
     padding-bottom:3px;
     padding-left: 3px;
     text-align: center;
-    background-color: #b8ffb8;
+    background-color: #0322d6;
     /*! border-left: 6px solid #000; */
     margin: 0px;
     padding-top: 10px;
     padding-bottom: 10px;
     font-weight: 666;
+    color: #fff;
 }
 
 .calc.heading + p{
@@ -50,6 +62,7 @@
     font-weight: 300;
     /*! margin-left: auto; */
     /*! margin-right: auto; */
+    text-align: center;
 }
 
 .user-input{
@@ -63,6 +76,8 @@
     border-radius: 3px;
     font-size: 16px;
     font-weight: 600;;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .user-input:focus,
@@ -81,8 +96,8 @@ margin-left: auto;
 margin-right: auto;
     /*! margin-left: 13px; */
     width: 98%;
-    background-color: #B8FFB8;
-    color: #000;
+    background-color: #030303;
+    color: #fdfdfd;
     text-transform: uppercase;
     font-weight: 600;
     transition: background-color 0.25s;
@@ -99,15 +114,16 @@ margin-right: auto;
 
 .results-section{
     padding: 10px;
-    background-color: #b8ffb8;
+    background-color: #0322d6;
     border-top: 3px dotted #000;
     border-bottom: 3px solid #000;
+    color: #fff;
 }
 
 .results-section .result,
 .results-section .bags{
     font-weight: 600;
-    color: #04047b;
+    color: #fff;
 }
 
 
@@ -117,6 +133,40 @@ margin-right: auto;
         max-width: 100%;
         margin-left: auto;
         margin-right: auto;
+    }
+    .user-inputs label{
+        text-align: left;
+    }
+}
+
+@media (min-width: 992px){
+    #calculators #concrete-footing-calculator,
+    #calculators #concrete-slab-calculator,
+    #calculators #column-calculator,
+    #calculators #steps-calculator{
+        float:left;
+        margin-left: 5%;
+        margin-right: 90%;
+    }
+    .additional-info{
+        display: block;
+        position: absolute;
+        right: 10px;
+        width: 320px;
+        border: 1px solid #000;
+        padding: 10px 5px;
+        top: 0px;
+        color: #000;
+        font-weight: 600;
+    }
+    .additional-info .formula{
+        display: inline-block;
+        color: #0aff0a;
+        margin-left: 15px;
+        padding-top: 15px;
+        margin-bottom: 15px;
+        border-bottom: 2px solid #0dff0d;
+        padding-bottom: 3px;
     }
 }
 
@@ -134,6 +184,9 @@ margin-right: auto;
         max-width: 550px;
         padding-left: 0px;
         padding-right: 0px;
+    }
+    .additional-info{
+        right: 5%;
     }
 }
 
