@@ -1,8 +1,30 @@
-.page-cover{
+.page_cover{
 	display: none !important;
 }
 
-#calculators * {
+.page_cover{
+	display: none !important;
+}
+
+@media (min-width: 1200px){
+	#page_content .row{
+		width: 90%;
+	}	
+}
+
+@media (min-width: 1400px){
+	#page_content .row{
+		width: 80%
+	}
+}
+
+@media (min-width: 1600px){
+	#page_content .row{
+		width: 80%;
+	}
+}
+
+.calculators * {
     font-family: 'Raleway', 'sans-serif';
 }
 
@@ -19,6 +41,10 @@
 #column-calc-submit,
 #steps-calc-submit{
     display: block;
+}
+
+.input-label > span{
+    padding-left: 15px;
 }
 
 #concrete-footing-calculator,
@@ -91,7 +117,7 @@
 #steps-calc-submit{
     margin-top: 20px;
     padding: 10px 6px;
-    border: 2px solid #68b57f;
+    border: 2px solid #000;
 margin-left: auto;
 margin-right: auto;
     /*! margin-left: 13px; */
@@ -108,7 +134,7 @@ margin-right: auto;
 #column-calc-submit:hover,
 #steps-calc-submit:hover{
     cursor: pointer;
-    background-color: #4fc82d;
+    background-color: #e53935;
     color: #fff;
 }
 
@@ -126,6 +152,12 @@ margin-right: auto;
     color: #fff;
 }
 
+.concrete-yards > p,
+.concrete-bags > p{
+	line-height: 1;
+	margin-bottom: 10px
+}
+
 
 @media (min-width: 480px){
     .user-input{
@@ -140,10 +172,10 @@ margin-right: auto;
 }
 
 @media (min-width: 992px){
-    #calculators #concrete-footing-calculator,
-    #calculators #concrete-slab-calculator,
-    #calculators #column-calculator,
-    #calculators #steps-calculator{
+    .calculators #concrete-footing-calculator,
+    .calculators #concrete-slab-calculator,
+    .calculators #column-calculator,
+    .calculators #steps-calculator{
         float:left;
         margin-left: 5%;
         margin-right: 90%;
@@ -171,12 +203,6 @@ margin-right: auto;
 }
 
 @media (min-width: 1200px){
-    #calculators{
-        /* display: flex;
-        flex-direction: row;
-        justify-content: space-evenly; */
-        float: left;
-    }
     #concrete-footing-calculator,
     #concrete-slab-calculator,
     #column-calculator,
@@ -187,14 +213,5 @@ margin-right: auto;
     }
     .additional-info{
         right: 5%;
-    }
-}
-
-@media (min-width: 1400px){
-    #concrete-footing-calculator,
-    #concrete-slab-calculator,
-    #column-calculator,
-    #steps-calculator{
-        max-width: 680px;
     }
 }
